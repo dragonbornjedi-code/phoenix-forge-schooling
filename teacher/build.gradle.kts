@@ -1,5 +1,6 @@
 plugins {
     id("phoenixforge.android.library")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
 }
@@ -7,7 +8,6 @@ plugins {
 android {
     namespace = "com.phoenixforge.schooling.teacher"
     buildFeatures { compose = true }
-    composeOptions { kotlinCompilerExtensionVersion = "1.5.14" }
 }
 
 dependencies {

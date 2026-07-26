@@ -1,5 +1,6 @@
 plugins {
     id("phoenixforge.android.app")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
 }
@@ -20,10 +21,6 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
     }
 }
 
