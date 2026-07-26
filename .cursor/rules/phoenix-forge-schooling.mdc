@@ -1,0 +1,12 @@
+---
+description: Phoenix Forge Schooling agent rules
+globs:
+  - "**/*"
+---
+
+- Product: phoenixforge_schooling (single dual-interface APK).
+- Read docs/roadmaps/00_MASTER_ROADMAP.md and docs/cline_essence/SKILL.md first.
+- Platform: phoenixforge-kit, theme, data, widget via includeBuild.
+- Security: Grok P0 fixes before porting classroom LAN/backup/auth.
+- Classroom repo is source/archive only.
+- Verify: ./init.sh

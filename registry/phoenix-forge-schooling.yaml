@@ -1,0 +1,59 @@
+# Phoenix Forge Schooling — Tier 0 registry
+schema_version: 1
+app_id: phoenixforge_schooling
+package: com.phoenixforge.schooling
+repo: phoenix-forge-schooling
+display_name: Phoenix Forge Schooling
+status: scaffolded
+
+products:
+  - id: phoenixforge_schooling
+    display_name: Phoenix Forge Schooling
+    modules: [app, backbone, teacher, student]
+    package: com.phoenixforge.schooling
+    note: >
+      Single dual-interface APK. Absorbs classroom forge_profile + teacher +
+      student into STEWARD/CHILD faces. Supersedes phoenixforge_classroom plan
+      as the greenfield home for the cutover (classroom remains archive/source).
+
+gradle_root: .
+source_of_requirements: ../phoenix-forge-classroom
+master_timeline: docs/roadmaps/00_MASTER_ROADMAP.md
+current_step: "0.01"
+
+platform_components:
+  - phoenixforge-kit
+  - phoenixforge-theme
+  - phoenixforge-data
+  - phoenixforge-widget
+
+tier0_docs:
+  - docs/CONSTITUTION.md
+  - docs/ARCHITECTURE.md
+  - registry/phoenix-forge-schooling.yaml
+  - docs/roadmaps/00_MASTER_ROADMAP.md
+  - docs/cline_essence/SKILL.md
+
+cline_essence:
+  version: "1.1.0"
+  skill: docs/cline_essence/SKILL.md
+  master_protocol: docs/cline_essence/MASTER_PROTOCOL.md
+
+verification_commands:
+  build_all: "./gradlew :app:assembleDebug"
+  projects: "./gradlew projects"
+  drift_check: "./scripts/cline-essence-drift-check.sh"
+  verify_all: "./scripts/schooling-verify-all.sh"
+
+forbidden_actions:
+  - Edit production Kotlin in phoenix-forge-classroom-forge-profile for new features
+  - Open LAN routes without mesh pairing auth
+  - Write cleartext Room backups to public storage
+  - protectionLevel=normal on child-data permissions
+  - Commit without operator request
+
+references:
+  classroom_archive: ../phoenix-forge-classroom
+  classroom_rearchitecture: ../phoenix-forge-classroom/docs/REARCHITECTURE_PHASE3_DESIGN.md
+  classroom_single_apk_plan: ../phoenix-forge-classroom/docs/roadmaps/05_PHOENIXFORGE_CLASSROOM_SINGLE_APK_ROADMAP.md
+  grok_security: "Grok multi-pass audit 2026-07-25 on phoenix-forge-classroom"
