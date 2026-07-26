@@ -10,7 +10,12 @@ required=(
   docs/roadmaps/00_MASTER_ROADMAP.md
   docs/CONSTITUTION.md
   docs/ARCHITECTURE.md
+  docs/architecture/review-sprint/00_INDEX.md
+  docs/architecture/review-sprint/GOVERNANCE_LOCK.md
+  docs/architecture/review-sprint/package-06-dependency-direction/README.md
+  docs/architecture/adr/000_INDEX.md
   registry/phoenix-forge-schooling.yaml
+  registry/callable-variable-policy.md
   AGENTS.md
   README.md
   settings.gradle.kts
@@ -35,6 +40,14 @@ if ! grep -q 'phoenixforge_schooling' registry/phoenix-forge-schooling.yaml; the
   echo "FAIL: app_id not found in registry"
   missing=1
 fi
+
+# Platform includeBuild: kit + theme + data + widget
+for lib in kit theme data widget; do
+  if ! grep -q "phoenixforge-${lib}" settings.gradle.kts; then
+    echo "FAIL: missing includeBuild phoenixforge-${lib}"
+    missing=1
+  fi
+done
 
 if [[ "$missing" -ne 0 ]]; then
   echo "DRIFT: FAIL"

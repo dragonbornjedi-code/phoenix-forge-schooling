@@ -16,13 +16,30 @@ Current step: **0.01**
 
 **Architecture Review Sprint (design law):**  
 [docs/architecture/review-sprint/00_INDEX.md](../architecture/review-sprint/00_INDEX.md)  
-Packages 00–05 must be treated as implementation specs before coding backbone security surfaces (DB, roles, events, mesh, LAN).
+Packages 00–06 + [GOVERNANCE_LOCK.md](../architecture/review-sprint/GOVERNANCE_LOCK.md) before coding backbone security surfaces.
 
 ---
 
 ## Mission
 
 Ship **one offline-first dual-interface schooling APK** that absorbs every beneficial classroom capability (profile identity, steward teaching, child experience, sync, mesh, curriculum, quests, memories, chariot, agency tooling) into `phoenixforge_schooling`, hardened with Grok P0 security and fully wired to **phoenixforge-kit, theme, data, and widget**.
+
+---
+
+## Platform components — mandatory (absolute paths)
+
+All four PhoenixForge shared libraries are **in scope** for this product. They are wired via composite `includeBuild` in `settings.gradle.kts` and scheduled on this roadmap.
+
+| Workspace path | Coordinate(s) | Scaffold wiring | Feature depth on roadmap |
+|----------------|---------------|-----------------|---------------------------|
+| `/var/lib/phoenix-ai/workspace/phoenixforge-kit` | `com.phoenixforge:foundation` + build-logic | **0.03**, continuous | Identity, Index, Event bus, TelemetryGate, LiveMessageChannel — **every phase** |
+| `/var/lib/phoenix-ai/workspace/phoenixforge-theme` | `theme`, `theme-compose` | **0.03**, app/teacher/student deps | Steward/Child themes — **0.92, 1.18, 2.56** |
+| `/var/lib/phoenix-ai/workspace/phoenixforge-data` | `com.phoenixforge:data` | **0.03** includeBuild; flag off | PF5 catalog/vectors — **2.50–2.74** (ADR-008: not operational event log) |
+| `/var/lib/phoenix-ai/workspace/phoenixforge-widget` | `com.phoenixforge:widget` | **0.03** includeBuild; flag off | Glance widgets — **2.50–2.74** |
+
+**Verification:** `./gradlew projects` lists included builds `:phoenixforge-kit`, `:phoenixforge-theme`, `:phoenixforge-data`, `:phoenixforge-widget`.
+
+**Governance:** [registry/callable-variable-policy.md](../../registry/callable-variable-policy.md) · [Package 06](../architecture/review-sprint/package-06-dependency-direction/README.md) · [ADRs](../architecture/adr/000_INDEX.md)
 
 ---
 
@@ -43,16 +60,12 @@ Ship **one offline-first dual-interface schooling APK** that absorbs every benef
 
 ---
 
-## Platform components (mandatory)
+### Sibling product references (not includeBuild)
 
-| Component | Coordinate / path | Schooling use |
-|-----------|-------------------|---------------|
-| **phoenixforge-kit** | `com.phoenixforge:foundation` | AppIdentity, EventBus, TelemetryGate, DeviceProfile, CallableVariableIndex, LiveMessageChannel |
-| **phoenixforge-theme** | `theme` + `theme-compose` | Steward + Child Material3 themes |
-| **phoenixforge-data** | `com.phoenixforge:data` | PF5 Room catalog (`pf5_schooling.db`), vector/catalog hooks |
-| **phoenixforge-widget** | `com.phoenixforge:widget` | Home-screen quest/day widgets (Glance) |
-| **phoenix-forge-world** | sibling Godot | Frozen file contracts (EVT_, public_state, manifests) |
-| **phoenix-forge-classroom** | sibling archive | Capability inventory + code to port |
+| Path | Role |
+|------|------|
+| `/var/lib/phoenix-ai/workspace/phoenix-forge-world` | Frozen file contracts (EVT_, public_state, manifests) |
+| `/var/lib/phoenix-ai/workspace/phoenix-forge-classroom` | Capability inventory + code archive to port |
 
 ---
 
@@ -114,7 +127,7 @@ Ship **one offline-first dual-interface schooling APK** that absorbs every benef
 | 0.11 | Cross | `.cursor/rules` + AGENTS turn-zero handoffs paths | files | pending |
 | 0.12 | Cross | Capability inventory map from classroom (Phase 4 ownership) | docs/architecture/CAPABILITY_MAP.md | pending |
 | 0.13 | Cross | Security baseline + Architecture Review Sprint Packages 00–05 | docs/security/GROK_BASELINE.md + docs/architecture/review-sprint/00_INDEX.md | [TESTED] |
-| 0.14 | Cross | Forbidden actions list matches registry | AGENTS | pending |
+| 0.14 | Cross | **Architecture Governance Lock** — Index policy, ADRs 001–009, Package 06 dep matrix, ownership tables, TransportPort + security package law; forbidden actions aligned | GOVERNANCE_LOCK.md + callable-variable-policy.md + package-06 + adr/ + AGENTS | [TESTED] |
 | 0.15 | Cross | local.properties / SDK note for Crucible builds | README | pending |
 | 0.16 | Cross | Scaffold Kotlin compiles or documented PARTIAL | assemble or evidence | pending |
 | 0.17 | Cross | Evidence dir `registry/evidence/phoenixforge_schooling/` | exists | pending |

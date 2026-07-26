@@ -86,14 +86,18 @@ data class SessionSnapshot(
 )
 ```
 
-### 2.4 PermissionMatrix
+### 2.4 PermissionMatrix (canonical — ADR-006)
+
+| Role | PUBLIC | LESSON | PROTECTED |
+|------|--------|--------|-----------|
+| **Child** | R/W | Read | **Deny** |
+| **Steward (unlocked)** | R/W | R/W | R/W |
+| **Steward (locked)** | R/W | R/W | **Deny** |
+| **LAN peer** | Token-gated | Token-gated | **Never direct** |
+| **World (Godot)** | File contract only | Manifest only | **Never** |
 
 | Action | CHILD | STEWARD locked | STEWARD unlocked |
 |--------|-------|----------------|------------------|
-| Read PUBLIC/LESSON events | ✓ | ✓ | ✓ |
-| Write PUBLIC events | ✓ | ✓ | ✓ |
-| Write LESSON events | ✗ | ✓ | ✓ |
-| Write/read PROTECTED | ✗ | ✗ | ✓ |
 | Mesh admin / pair | ✗ | ✗ | ✓ |
 | Export full profile | ✗ | ✗ | ✓ + consent |
 | Sage API key | ✗ | ✗ | ✓ |

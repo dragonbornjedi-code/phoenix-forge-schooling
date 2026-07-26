@@ -58,12 +58,13 @@ See Package 00 catalog: `schooling.app.*`, `schooling.role.*`, `schooling.networ
 com.phoenixforge.schooling
 ├── app/          SchoolingApp, MainActivity, RoleRouter, SchoolingChannelService
 ├── backbone/
-│   ├── auth/     RoleManager, SessionStore, StewardGate, PermissionMatrix
-│   ├── database/ SchoolingDatabase, entity, dao, repository
-│   ├── events/   EventWriter, EventIngester, EventScope, LogicalClock, projectors
-│   ├── sync/     PublicSyncWriter (jailed), watchers, SyncCoordinator
-│   ├── network/  LanHttpServer, pairing, DeviceRegistry, MeshAuth, transport/
-│   ├── backup/   encrypted private only
+│   ├── auth/     RoleManager, SessionStore, StewardGate
+│   ├── security/ MeshAuth, TokenStore, RateLimiter, BackupCipher, PermissionMatrix
+│   ├── database/ SchoolingDatabase (operational only — ADR-008)
+│   ├── events/   EventWriter → TransportPort; Ingester; queues
+│   ├── sync/     PublicSyncWriter (jailed), watchers
+│   ├── network/  LanHttpServer, pairing, DeviceRegistry, transport/
+│   ├── backup/   uses security.BackupCipher
 │   └── config/   Index bootstrap
 ├── teacher/      steward UI
 └── student/      child UI
@@ -73,14 +74,14 @@ com.phoenixforge.schooling
 
 | Package | Topic | Path |
 |---------|-------|------|
-| 00 | Compliance + red-team | [architecture/review-sprint/package-00-compliance](architecture/review-sprint/package-00-compliance/README.md) |
-| 01 | SchoolingDatabase | [package-01-database](architecture/review-sprint/package-01-database/README.md) |
-| 02 | Role / Session / Router | [package-02-role-system](architecture/review-sprint/package-02-role-system/README.md) |
-| 03 | Event pipeline | [package-03-event-pipeline](architecture/review-sprint/package-03-event-pipeline/README.md) |
-| 04 | Mesh pairing | [package-04-mesh](architecture/review-sprint/package-04-mesh/README.md) |
-| 05 | LanHttpServer | [package-05-lan-http](architecture/review-sprint/package-05-lan-http/README.md) |
+| 00 | Compliance + red-team | [package-00-compliance](architecture/review-sprint/package-00-compliance/README.md) |
+| 06 | Dependency direction | [package-06-dependency-direction](architecture/review-sprint/package-06-dependency-direction/README.md) |
+| — | Governance lock | [GOVERNANCE_LOCK.md](architecture/review-sprint/GOVERNANCE_LOCK.md) |
+| 01–05 | DB, roles, events, mesh, LAN | [00_INDEX.md](architecture/review-sprint/00_INDEX.md) |
+| ADR | Decisions 001–009 | [adr/000_INDEX.md](architecture/adr/000_INDEX.md) |
+| Index | Key governance | [registry/callable-variable-policy.md](../registry/callable-variable-policy.md) |
 
-**Implementation rule:** design packages first; code in roadmap order; **Package 05 blocked on Package 04 tests**.
+**Implementation rule:** **0.14 Governance Lock** first; then design packages; **Package 05 blocked on Package 04 tests**.
 
 ## Source mapping
 

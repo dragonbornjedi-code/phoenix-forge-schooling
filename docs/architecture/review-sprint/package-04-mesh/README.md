@@ -47,42 +47,61 @@ Accept iff H matches row for D and not revoked and not expired
 
 Optional v2: mutual challenge nonce (HMAC).
 
-### 2.2 Package tree
+### 2.2 Package tree (security is its own bounded context — ADR-009)
 
 ```
+backbone/security/
+  MeshAuth.kt
+  TokenStore.kt              # hashes only
+  RateLimiter.kt
+  BackupCipher.kt
+  ReplayWindow.kt            # optional
+  PermissionMatrix.kt        # or shared with auth/
+
 backbone/network/
   pairing/
-    PairingManager.kt
-    PairingSession.kt          # pending QR/code
-    TokenStore.kt              # encrypted prefs or DB hashes
+    PairingManager.kt        # uses security.TokenStore
+    PairingSession.kt
   DeviceRegistry.kt
   NsdRegistrar.kt
   discovery/
     PeerDiscovery.kt
   transport/
-    SyncTransport.kt           # interface
+    TransportPort.kt         # interface (ADR-003)
     FileContractTransport.kt
     LiveEnvelopeTransport.kt
-  security/
-    MeshAuth.kt
-    RateLimiter.kt
 ```
 
-### 2.3 Pairing protocol (v1)
+### 2.3 Pairing token lifecycle (required)
+
+```
+Pending → Bound → Trusted → Rotating → Revoked → Expired
+```
+
+| State | Accepts | Rejects | Timeout | Persistence | Audit |
+|-------|---------|---------|---------|-------------|-------|
+| **Pending** | pair/complete with matching S | all data routes | `schooling.security.pairing_ttl_ms` (default 120s) | secret in memory/UI only; not hashed yet | `PAIR_PENDING` |
+| **Bound** | complete ACK; no data yet | export/events until Trusted | optional grace 30s | hash + deviceId row | `PAIR_BOUND` |
+| **Trusted** | all MeshAuth routes for linked uids | revoked tokens | none (until rotate) | PeerDeviceEntity | `PAIR_TRUSTED` |
+| **Rotating** | old token + new token dual accept | none extra | rotation window 5m | both hashes | `PAIR_ROTATING` |
+| **Revoked** | none | all | permanent | flag revoked=true | `PAIR_REVOKED` |
+| **Expired** | none | all | TTL elapsed | deleted or tombstone | `PAIR_EXPIRED` |
+
+### 2.3.1 Pairing protocol (v1)
 
 ```
 Steward (unlocked):
-  1. PairingManager.beginPairing()
+  1. PairingManager.beginPairing() → state=Pending
   2. Generate S = 32 random bytes (base64url)
   3. Display QR: { appId, deviceId, port, token:S, exp }
   4. Wait peer POST /api/v1/pair/complete { deviceId, displayName } with Bearer S
-  5. On success: TokenStore.save(hash), DeviceRegistry.upsert(host later)
+  5. On success: TokenStore.save(hash), state=Bound→Trusted, DeviceRegistry.upsert
   6. Clear S from memory; never log S
 
 Peer device:
   1. Scan QR
   2. Store S in peer TokenStore (encrypted)
-  3. Call complete; then use S for all LAN calls
+  3. Call complete; then use S for all LAN calls (Trusted)
 ```
 
 ### 2.4 DeviceRegistry

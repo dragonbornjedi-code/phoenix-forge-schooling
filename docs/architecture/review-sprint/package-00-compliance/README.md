@@ -204,11 +204,17 @@ See [prompts/IMPLEMENT.md](prompts/IMPLEMENT.md).
 
 ---
 
-## 6. ACCEPTANCE CRITERIA (Package 00)
+## 6. ACCEPTANCE CRITERIA (Package 00) — sign-off gate
 
-- [ ] ARCHITECTURE.md updated with Index keys + transport ports + ownership matrix  
-- [ ] This package reviewed by operator  
-- [ ] No code required for Package 00 PASS except optional docs  
-- [ ] Packages 01–05 reference this ownership matrix without contradiction  
+Before marking Package 00 **`[VERIFIED]`**, governance must exist (roadmap **0.14**):
 
-**Status after design:** **[TESTED]** as documents exist; implementation of Index wiring remains **[UNTESTED]** until later steps.
+- [x] ARCHITECTURE.md ownership + Index keys + transports  
+- [x] [registry/callable-variable-policy.md](../../../../registry/callable-variable-policy.md) — who owns keys, immutable vs operator vs runtime, deprecation  
+- [x] ADRs 001–009 under `docs/architecture/adr/`  
+- [x] Package 06 dependency direction matrix  
+- [x] [GOVERNANCE_LOCK.md](../GOVERNANCE_LOCK.md) package + security ownership tables  
+- [x] Platform components (kit/theme/data/widget) absolute paths on roadmap + settings.gradle.kts  
+- [ ] Operator review sign-off (human)  
+- [ ] Index bootstrap code (optional; **[UNTESTED]** until implemented)
+
+**Status:** Design **`[TESTED]`**; full **`[VERIFIED]`** after operator sign-off of 0.14 governance pack.

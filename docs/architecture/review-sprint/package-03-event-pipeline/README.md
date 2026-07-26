@@ -56,11 +56,12 @@ backbone/events/
     QuarantineStore.kt
 ```
 
-### 2.2 Wire format (frozen)
+### 2.2 Wire format (frozen Godot + per-event version)
 
 ```json
 {
   "schemaVersion": 1,
+  "eventVersion": 1,
   "eventId": "EVT_… or uuid",
   "eventType": "QUEST_COMPLETED",
   "scope": "PUBLIC",
@@ -73,7 +74,14 @@ backbone/events/
 }
 ```
 
+| Field | Rule |
+|-------|------|
+| `schemaVersion` | Global envelope; **frozen at 1** for Godot (ADR-005). Bump only with World lockstep. |
+| `eventVersion` | **Per eventType** evolution. Changing QUEST_COMPLETED payload shape → bump `eventVersion` for that type only. Unknown eventVersion → quarantine or ignore-forward-compatible fields. |
+
 **actorApp** from Index `schooling.sync.actor_app_id`, never hardcoded package string in call sites.
+
+**Transport:** EventWriter depends on **`TransportPort`** only (ADR-003), never `File`/`LanHttpServer`/`LiveMessageChannel` concrete types.
 
 ### 2.3 EventWriter algorithm
 
@@ -123,13 +131,33 @@ UI → QuestEngine.complete
   → Godot reads file
 ```
 
-### 2.7 Thread model
+### 2.7 Thread ownership (no sync cross-boundary calls)
 
-| Component | Thread |
-|-----------|--------|
-| EventWriter | caller suspend / IO |
-| FileWatcher | dedicated looper or callbackFlow |
-| Projectors | IO, single-flight per studentUid |
+```
+FileObserver / NIO watch (callback thread)
+        │ enqueue only (never call DB here)
+        ▼
+Ingest Queue  (CoroutineScope IO, limitedParallelism=2)
+        │
+        ▼
+EventIngester → EventRepository (Room)
+        │ enqueue projector job
+        ▼
+Projector Queue (IO, limitedParallelism=1 per studentUid)
+        │
+        ▼
+State Writer (public_state / timeline) via TransportPort
+```
+
+| Component | Thread / queue | May call |
+|-----------|----------------|----------|
+| EventWriter | caller suspend → IO | Repository, TransportPort, Bus.emit |
+| FileObserver | platform callback | **Only** offer to Ingest Queue |
+| Ingest Queue | IO limited | Ingester, Repository |
+| Projector Queue | IO single-flight | StateProjector, TransportPort |
+| UI | Main | EventWriter suspend only |
+
+**Forbidden:** FileObserver → Room on observer thread; Projector → network on Main; bidirectional sync waits between queues.
 
 ### 2.8 Race condition audit
 
@@ -147,7 +175,7 @@ EventWriter ── PermissionMatrix
      ├── EventIdFactory
      ├── LogicalClock
      ├── EventRepository
-     └── SyncTransport ── FileContractTransport
+     └── TransportPort ── FileContractTransport
                       └── LiveEnvelopeTransport (optional)
 
 EventIngester ── EventContractValidator

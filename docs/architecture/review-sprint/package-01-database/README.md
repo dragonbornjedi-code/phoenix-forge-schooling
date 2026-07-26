@@ -82,7 +82,23 @@ com.phoenixforge.schooling.backbone.database
 | peer_devices | device_id PK, token_hash, last_seen, allowed | mesh | **no plaintext tokens** |
 
 **DB name:** `schooling.db` (app-private).  
-**PF5:** `pf5_schooling.db` via phoenixforge-data is **out of v1** (roadmap 2.50); no dual-write until ADR.
+
+### SchoolingDatabase ownership boundary (ADR-008)
+
+```
+SchoolingDatabase
+        │ owns
+        ▼
+Operational state (profiles, events, messages, peers, local timeline)
+
+NOT Global catalog
+NOT Shared vectors
+NOT Cross-app search
+NOT Phone-wide PF5 ContentProvider corpus
+```
+
+**PF5** (`phoenixforge-data`, path `/var/lib/phoenix-ai/workspace/phoenixforge-data`, coord `com.phoenixforge:data`):  
+`pf5_schooling.db` only when Index `schooling.data.pf5.enabled=true` (roadmap **2.50+**). No PROTECTED rows in catalog.
 
 ### 2.3 Class diagram (text)
 
