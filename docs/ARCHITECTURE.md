@@ -70,18 +70,17 @@ com.phoenixforge.schooling
 └── student/      child UI
 ```
 
-## Architecture Review Sprint
+## Architecture laws (standalone)
 
-| Package | Topic | Path |
-|---------|-------|------|
-| 00 | Compliance + red-team | [package-00-compliance](architecture/review-sprint/package-00-compliance/README.md) |
-| 06 | Dependency direction | [package-06-dependency-direction](architecture/review-sprint/package-06-dependency-direction/README.md) |
-| — | Governance lock | [GOVERNANCE_LOCK.md](architecture/review-sprint/GOVERNANCE_LOCK.md) |
-| 01–05 | DB, roles, events, mesh, LAN | [00_INDEX.md](architecture/review-sprint/00_INDEX.md) |
-| ADR | Decisions 001–009 | [adr/000_INDEX.md](architecture/adr/000_INDEX.md) |
-| Index | Key governance | [registry/callable-variable-policy.md](../registry/callable-variable-policy.md) |
+| Document | Status |
+|----------|--------|
+| [architecture/DEPENDENCY_DIRECTION.md](architecture/DEPENDENCY_DIRECTION.md) | **[VERIFIED]** law |
+| [architecture/CALLABLE_VARIABLE_INDEX_POLICY.md](architecture/CALLABLE_VARIABLE_INDEX_POLICY.md) | **[VERIFIED]** law |
+| [architecture/adr/000_INDEX.md](architecture/adr/000_INDEX.md) | ADRs **001–010** |
+| [architecture/review-sprint/GOVERNANCE_LOCK.md](architecture/review-sprint/GOVERNANCE_LOCK.md) | Package 00 lock |
+| [architecture/review-sprint/00_INDEX.md](architecture/review-sprint/00_INDEX.md) | Packages 00–06 |
 
-**Implementation rule:** **0.14 Governance Lock** first; then design packages; **Package 05 blocked on Package 04 tests**.
+**Implementation rule:** **0.14 Governance Lock** first; **Package 05 blocked on Package 04 tests**.
 
 ## Source mapping
 

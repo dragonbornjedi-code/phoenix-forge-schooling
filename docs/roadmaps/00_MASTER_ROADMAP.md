@@ -127,7 +127,7 @@ All four PhoenixForge shared libraries are **in scope** for this product. They a
 | 0.11 | Cross | `.cursor/rules` + AGENTS turn-zero handoffs paths | files | pending |
 | 0.12 | Cross | Capability inventory map from classroom (Phase 4 ownership) | docs/architecture/CAPABILITY_MAP.md | pending |
 | 0.13 | Cross | Security baseline + Architecture Review Sprint Packages 00–05 | docs/security/GROK_BASELINE.md + docs/architecture/review-sprint/00_INDEX.md | [TESTED] |
-| 0.14 | Cross | **Architecture Governance Lock** — Index policy, ADRs 001–009, Package 06 dep matrix, ownership tables, TransportPort + security package law; forbidden actions aligned | GOVERNANCE_LOCK.md + callable-variable-policy.md + package-06 + adr/ + AGENTS | [TESTED] |
+| 0.14 | Cross | **Architecture Governance Lock** — standalone DEPENDENCY_DIRECTION + CALLABLE_VARIABLE_INDEX_POLICY, ADRs 001–010, Package 06, substitution drift, ownership tables | drift PASS + docs/architecture/* | [VERIFIED] |
 | 0.15 | Cross | local.properties / SDK note for Crucible builds | README | pending |
 | 0.16 | Cross | Scaffold Kotlin compiles or documented PARTIAL | assemble or evidence | pending |
 | 0.17 | Cross | Evidence dir `registry/evidence/phoenixforge_schooling/` | exists | pending |

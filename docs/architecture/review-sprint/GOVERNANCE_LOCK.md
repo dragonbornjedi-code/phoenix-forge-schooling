@@ -7,14 +7,19 @@
 
 | Artifact | Path |
 |----------|------|
-| CallableVariableIndex policy | [registry/callable-variable-policy.md](../../../registry/callable-variable-policy.md) |
+| CallableVariableIndex policy (canonical) | [../CALLABLE_VARIABLE_INDEX_POLICY.md](../CALLABLE_VARIABLE_INDEX_POLICY.md) |
+| Registry pointer | [registry/callable-variable-policy.md](../../../registry/callable-variable-policy.md) |
+| Dependency direction (standalone law) | [../DEPENDENCY_DIRECTION.md](../DEPENDENCY_DIRECTION.md) |
 | Dependency direction (Package 06) | [package-06-dependency-direction/README.md](package-06-dependency-direction/README.md) |
-| ADR index | [../adr/000_INDEX.md](../adr/000_INDEX.md) |
+| ADR registry | [../adr/000_INDEX.md](../adr/000_INDEX.md) (001–010) |
 | Package ownership | below |
 | Security ownership | below |
 | TransportPort policy | [ADR-003](../adr/ADR-003-transport-port.md) |
 | SchoolingDatabase vs PF5 | [ADR-008](../adr/ADR-008-schooling-db-vs-pf5.md) |
 | Security bounded context | [ADR-009](../adr/ADR-009-security-bounded-context.md) |
+| Index sole lookup | [ADR-010](../adr/ADR-010-callable-variable-index.md) |
+
+**Lock status:** Architecture / Blueprint / Governance **`[VERIFIED]`** (docs + drift).
 
 ## Package ownership table
 

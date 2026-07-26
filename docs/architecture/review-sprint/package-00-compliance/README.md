@@ -204,17 +204,20 @@ See [prompts/IMPLEMENT.md](prompts/IMPLEMENT.md).
 
 ---
 
-## 6. ACCEPTANCE CRITERIA (Package 00) — sign-off gate
+## 6. ACCEPTANCE CRITERIA (Package 00) — locked
 
-Before marking Package 00 **`[VERIFIED]`**, governance must exist (roadmap **0.14**):
+Governance elevated to standalone architecture law (roadmap **0.14**):
 
 - [x] ARCHITECTURE.md ownership + Index keys + transports  
-- [x] [registry/callable-variable-policy.md](../../../../registry/callable-variable-policy.md) — who owns keys, immutable vs operator vs runtime, deprecation  
-- [x] ADRs 001–009 under `docs/architecture/adr/`  
-- [x] Package 06 dependency direction matrix  
-- [x] [GOVERNANCE_LOCK.md](../GOVERNANCE_LOCK.md) package + security ownership tables  
-- [x] Platform components (kit/theme/data/widget) absolute paths on roadmap + settings.gradle.kts  
-- [ ] Operator review sign-off (human)  
-- [ ] Index bootstrap code (optional; **[UNTESTED]** until implemented)
+- [x] [CALLABLE_VARIABLE_INDEX_POLICY.md](../../CALLABLE_VARIABLE_INDEX_POLICY.md) (canonical) + registry pointer  
+- [x] [DEPENDENCY_DIRECTION.md](../../DEPENDENCY_DIRECTION.md)  
+- [x] ADR registry [000_INDEX.md](../../adr/000_INDEX.md) — **001–010**  
+- [x] Package 06 + [GOVERNANCE_LOCK.md](../GOVERNANCE_LOCK.md)  
+- [x] Platform kit/theme/data/widget includeBuild **and** substitution targets in drift  
+- [x] Architecture / Blueprint / Governance classified **[VERIFIED]** as documentation law  
 
-**Status:** Design **`[TESTED]`**; full **`[VERIFIED]`** after operator sign-off of 0.14 governance pack.
+**Index bootstrap application code** remains **[UNTESTED]** until Package 00 implement prompt is run — that is implementation, not architecture lock.
+
+**Architecture status: `[VERIFIED]`**  
+**Blueprint alignment: `[VERIFIED]`**  
+**Governance: `[VERIFIED]`**

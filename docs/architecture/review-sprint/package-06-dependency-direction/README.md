@@ -2,7 +2,10 @@
 
 **Status:** Architecture law (governance lock)  
 **Master step:** 0.14  
+**Canonical standalone law:** [../../DEPENDENCY_DIRECTION.md](../../DEPENDENCY_DIRECTION.md)  
 **Evidence:** `registry/evidence/phoenixforge_schooling/architecture-review/package-06/`
+
+This package **summarizes** the matrix; **DEPENDENCY_DIRECTION.md** is the checked-in law.
 
 ---
 
