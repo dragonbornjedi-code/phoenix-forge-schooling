@@ -14,6 +14,10 @@
 
 Current step: **0.01**
 
+**Architecture Review Sprint (design law):**  
+[docs/architecture/review-sprint/00_INDEX.md](../architecture/review-sprint/00_INDEX.md)  
+Packages 00–05 must be treated as implementation specs before coding backbone security surfaces (DB, roles, events, mesh, LAN).
+
 ---
 
 ## Mission
@@ -109,7 +113,7 @@ Ship **one offline-first dual-interface schooling APK** that absorbs every benef
 | 0.10 | Cross | Suite workspace file includes schooling folder | code-workspace | pending |
 | 0.11 | Cross | `.cursor/rules` + AGENTS turn-zero handoffs paths | files | pending |
 | 0.12 | Cross | Capability inventory map from classroom (Phase 4 ownership) | docs/architecture/CAPABILITY_MAP.md | pending |
-| 0.13 | Cross | Security baseline doc from Grok P0–P2 | docs/security/GROK_BASELINE.md | pending |
+| 0.13 | Cross | Security baseline + Architecture Review Sprint Packages 00–05 | docs/security/GROK_BASELINE.md + docs/architecture/review-sprint/00_INDEX.md | [TESTED] |
 | 0.14 | Cross | Forbidden actions list matches registry | AGENTS | pending |
 | 0.15 | Cross | local.properties / SDK note for Crucible builds | README | pending |
 | 0.16 | Cross | Scaffold Kotlin compiles or documented PARTIAL | assemble or evidence | pending |
